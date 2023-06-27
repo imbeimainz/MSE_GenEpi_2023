@@ -1,0 +1,28 @@
+# Rendering the whole material...
+
+```{r}
+rmarkdown::render("01-rnaseq_lecture/transcriptomics_lecture.Rmd")
+rmarkdown::render("01-rnaseq_lecture/transcriptomics_practical.Rmd")
+
+rmarkdown::render("02-rbioc_recap/intro_to_r_bioc.Rmd")
+
+# rmarkdown::render("03-interpretation_singlecell/singlecell_lecture.Rmd")
+# rmarkdown::render("03-interpretation_singlecell/singlecell_practical.Rmd")
+```
+
+Then:
+
+```
+git add -u
+git push origin main
+## and all the likes
+```
+
+```{r}
+renderthis::to_pdf("01-rnaseq_lecture/transcriptomics_lecture.html")
+pagedown::chrome_print("01-rnaseq_lecture/transcriptomics_practical.html")
+pagedown::chrome_print("02-rbioc_recap/intro_to_r_bioc.html")
+# renderthis::to_pdf("01-rnaseq_lecture/transcriptomics_practical.html")
+# renderthis::to_pdf("02-rbioc_recap/intro_to_r_bioc.html")
+```
+
