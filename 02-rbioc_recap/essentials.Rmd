@@ -1,0 +1,13 @@
+# Essential items to touch upon
+
+- Exploiting the RStudio IDE 
+- R as a calculator
+- Asking for R help
+- Taking notes in RMarkdown
+- Tabular data
+- 
+
+
+
+
+
