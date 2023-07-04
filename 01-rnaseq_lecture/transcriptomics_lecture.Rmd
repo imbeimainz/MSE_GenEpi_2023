@@ -525,13 +525,13 @@ Fields:
 
 --
 
-Currently (May 2022)
+Currently (June 2023)
 
-- 2140 software packages
-- 909 annotation packages
-- 410 experiment packages
-- 29 workflows
-- 8 books
+- 2230 software packages
+- 912 annotation packages
+- 419 experiment packages
+- 27 workflows
+- 3 books
 
 **Aim**: interdisciplinary research, collaboration and rapid development of scientific software
 
