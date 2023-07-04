@@ -129,6 +129,10 @@ Latest versions highly recommended!
 
 See https://imbeimainz.github.io/GTIPI2022/material.html for details!
 
++
+
+This repo should contain it all: https://github.com/imbeimainz/MSE_GenEpi_2023
+
 ---
 
 
