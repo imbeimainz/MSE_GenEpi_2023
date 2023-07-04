@@ -1082,6 +1082,12 @@ clupro_DE_macrophage_IFNg_vs_naive <- clusterProfiler::enrichGO(
 )
 ```
 
+```{r content-funcenr}
+DT::datatable(topgo_DE_macrophage_IFNg_vs_naive[1:10,])
+DT::datatable(as.data.frame(clupro_DE_macrophage_IFNg_vs_naive)[1:10,])
+```
+
+
 ## Streamlining interpretation of results with GeneTonic
 
 "Since it is bioinformatics", every software package can be expected to return a (slightly) different-but-similar-in-content output format.
