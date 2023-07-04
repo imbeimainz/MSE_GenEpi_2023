@@ -1108,12 +1108,11 @@ Why bother plotting at all?
 
 
 
-## This was done with R
+## You can do all this with R
 
-<img src="http://spatialanalysis.co.uk/wp-content/uploads/2012/02/bike_ggplot.png" alt="" width="750"/>
+Look for some inspiration here, it is an excellent place to start and learn!
 
-https://jcheshire.com/r-spatial-data-hints/great-maps-ggplot2/
-
+https://r-graph-gallery.com/
 
 ## The `plot` function
 
