@@ -44,53 +44,53 @@ xaringanExtra::use_webcam()
 
 ---
 
+# Let's do a quick introduction round!
+
+I'd like to know
+
+* Your name
+* The link between you and RNA-seq data
+* A fun fact about you
+
+--
+
+I'll start :)
+
+--
+
+<p align="center">
+<br><br><br>
+Hi, I am Federico, I am the head of the Bioinformatics group at the IMBEI in Mainz.<br>
+People told me I am somehow well versed with RNA-seq data.<br>
+I like to cook and talk about food.
+</p>
 ---
 
 ### Questions
 
 --
-
-What are the steps to process RNA-Seq data?
-- How to convert RNA-seq reads into counts?
-- How to perform quality control (QC) of RNA-seq reads?
-
---
-
-How to identify differentially expressed genes across multiple experimental conditions?
-- How to properly analyze RNA count data using DESeq2?
-- How to perform quality control (QC) and exploratory data analysis (EDA) of RNA-seq count data?
-
---
-
-What are the biological functions impacted by the differential expression of genes?
-- How can I perform a gene ontology enrichment analysis?
-
---
-
-How can I create neat visualizations of the data?
-- How can I visualize the results for my enrichment analysis?
-
---
-
-How can I generate interactive reports to summarise my analyses?
-
----
-
-### Questions
 
 **What are the steps to process RNA-Seq data?**
 - How to convert RNA-seq reads into counts?
 - How to perform quality control (QC) of RNA-seq reads?
 
+--
+
 **How to identify differentially expressed genes across multiple experimental conditions?**
 - How to properly analyze RNA count data using DESeq2?
 - How to perform quality control (QC) and exploratory data analysis (EDA) of RNA-seq count data?
 
-What are the biological functions impacted by the differential expression of genes?
+--
+
+**What are the biological functions impacted by the differential expression of genes?**
 - How can I perform a gene ontology enrichment analysis?
 
-How can I create neat visualizations of the data?
+--
+
+**How can I create neat visualizations of the data?**
 - How can I visualize the results for my enrichment analysis?
+
+--
 
 **How can I generate interactive reports to summarise my analyses?**
 
