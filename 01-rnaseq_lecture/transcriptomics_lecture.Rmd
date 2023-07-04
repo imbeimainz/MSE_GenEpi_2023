@@ -1234,64 +1234,6 @@ Did someone say heterogeneity?
 
 ---
 
-### Questions
-
-What are the steps to process RNA-Seq data?
-- How to convert RNA-seq reads into counts?
-- How to perform quality control (QC) of RNA-seq reads?
-
-How to identify differentially expressed genes across multiple experimental conditions?
-- How to properly analyze RNA count data using DESeq2?
-- How to perform quality control (QC) and exploratory data analysis (EDA) of RNA-seq count data?
-
-What are the biological functions impacted by the differential expression of genes?
-- How can I perform a gene ontology enrichment analysis?
-
-How can I create neat visualizations of the data?
-- How can I visualize the results for my enrichment analysis?
-
-How can I generate interactive reports to summarise my analyses?
-
----
-
-### Questions
-
-What are the steps to process RNA-Seq data?
-- How to convert RNA-seq reads into counts?
-- How to perform quality control (QC) of RNA-seq reads?
-
-How to identify differentially expressed genes across multiple experimental conditions?
-- How to properly analyze RNA count data using DESeq2?
-- How to perform quality control (QC) and exploratory data analysis (EDA) of RNA-seq count data?
-
-**What are the biological functions impacted by the differential expression of genes?**
-- How can I perform a gene ontology enrichment analysis?
-
-**How can I create neat visualizations of the data?**
-- How can I visualize the results for my enrichment analysis?
-
-**How can I generate interactive reports to summarise my analyses?**
-
----
-
-# Goals
-
-after constructing and running a differential gene expression analysis...
-
-- Perform a functional enrichment analysis
-- Perform and visualize the enrichment analysis for Gene Ontology terms
-- Get familiar with representations of the relationship between genes and gene sets
-
---
-
-### Prerequisites
-
-- a basic understanding of R
-- familiarity with gene expression data (RNA-seq)
-- familiarity with the concept of differential expression analysis
-
----
-
 # What do our results look like?
 
 <p align="center">
@@ -1901,6 +1843,26 @@ _Stop using Excel for performing Bioinformatics data analysis :)_
 
 ---
 
+# The essential - Recap
+
+--
+
+- Expression quantification
+
+--
+
+- Data exploration: principal components analysis, gene plots
+
+--
+
+- Differential analysis: DE modeling, design, effect size, variability, significance
+
+--
+
+- Functional interpretation: gene sets, pathways, biological themes
+
+---
+
 class: center, middle
 
 # Practical session
@@ -1936,7 +1898,7 @@ The whole `rnaseqGene` workflow is detailed here: https://www.bioconductor.org/p
 class: middle, center
 
 ## ... thank you for your attention!
-<code>marinif@uni-mainz.de - `r icons::fontawesome('twitter')`</code> [`@FedeBioinfo`](https://twitter.com/FedeBioinfo)
+<code>marinif@uni-mainz.de - `r icons::fontawesome('twitter')`</code> [`@FedeBioinfo`](https://twitter.com/FedeBioinfo)<br>
 <code>charlotte.soneson@fmi.ch - `r icons::fontawesome('twitter')`</code> [`@CSoneson`](https://twitter.com/CSoneson)
 
 
