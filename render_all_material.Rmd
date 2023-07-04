@@ -20,8 +20,11 @@ git push origin main
 
 ```{r}
 renderthis::to_pdf("01-rnaseq_lecture/transcriptomics_lecture.html")
+pagedown::chrome_print("01-rnaseq_lecture/transcriptomics_lecture.html", timeout = 120)
+
 pagedown::chrome_print("01-rnaseq_lecture/transcriptomics_practical.html")
-pagedown::chrome_print("02-rbioc_recap/intro_to_r_bioc.html")
+pagedown::chrome_print("02-rbioc_recap/intro_to_r_bioc.html", timeout = 120)
+
 # renderthis::to_pdf("01-rnaseq_lecture/transcriptomics_practical.html")
 # renderthis::to_pdf("02-rbioc_recap/intro_to_r_bioc.html")
 ```
