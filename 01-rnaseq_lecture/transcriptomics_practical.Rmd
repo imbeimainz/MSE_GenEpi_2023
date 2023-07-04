@@ -37,14 +37,20 @@ knitr::opts_chunk$set(
 <!-- </script> -->
 
 
-```{r style, echo=FALSE, message=FALSE, warning=FALSE, results="asis"}
+```{r style, echo=FALSE, message=FALSE, warning=FALSE, results="asis", eval = TRUE}
 suppressPackageStartupMessages({
     library(BiocStyle)
     library(knitr)
     library(rmarkdown)
 })
 options(width = 80)
-opts_chunk$set(fig.width = 6, fig.height = 6, eval = TRUE)
+
+eval_all <- TRUE
+
+eval_dte <- FALSE
+eval_dtu <- FALSE
+
+opts_chunk$set(fig.width = 6, fig.height = 6, eval = eval_all)
 ```
 
 # Introduction
@@ -80,6 +86,28 @@ Many parts of this tutorial are based on a published RNA-seq workflow
 available via [F1000Research](http://f1000research.com/articles/4-1070)
 [@Love2015RNASeq] and as a [Bioconductor
 package](https://www.bioconductor.org/packages/release/workflows/html/rnaseqGene.html).
+
+Along this notebook that you can render yourself - we will show you how during the
+workshop - you will encounter some small quiz sections to keep up with your progress
+throughout the entire workflow.
+
+## Setup recommendation
+
+We recommend you use the following setup for an effective learning experience
+
+* Clone or download the workshop repo, available at https://github.com/imbeimainz/RNAseqFrankfurt2023
+
+* (Make sure you have R/RStudio/Bioconductor all setup, as expected)
+
+* Work in RStudio, ideally clicking on the RStudio project file
+
+* Open up the `RNAseq_practical.Rmd` file, inside RStudio
+
+<!-- * As a check, refer to `RNAseq_practical_run_all.html` file - don't use that during the workshop -->
+
+* Execute the code chunks/read the information provided
+
+Have fun learning - together!
 
 ## Experimental data
 
@@ -240,6 +268,12 @@ object contains sample annotations in the `colData` slot.
 colData(st)
 ```
 
+### Quiz {-}
+
+* How many samples are there in this `macrophage` dataset? How many are there in your (typical) RNA-seq experiment?
+* Is the quantification done at the transcript level or at the gene level? How can you go from one to the other? And vice versa?
+* What is "better"? Think of DGE, DTU, DTE... and of your experimental setting
+
 # Summarizing on the gene level
 
 As we saw, the features in the *SummarizedExperiment* object above are individual 
@@ -315,6 +349,12 @@ pipelines, we round the estimated counts here (note that in practice,
 assay(sg, "counts") <- round(assay(sg, "counts"))
 ```
 
+### Quiz {-}
+
+* Can you start your DE analysis with normalized values such as TPMs?
+* Where can I store additional information about the samples?
+* Where can I store additional information about the features? (What can your features be?)
+* Can you think of a way to read in the required information if you start (AAAAAAAH) from Excel files?
 
 # Representing counts for differential expression packages
 
@@ -461,6 +501,13 @@ rows of the count matrix). One difference compared to the *DESeqDataSet* is that
 the experimental design is not defined when creating the *DGEList*, but later in
 the workflow.
 
+### Quiz {-}
+
+* How important is the definition of the design?
+* How do I quantify the effect size? "In which direction" is this to be interpreted?
+* Is it possible to change the reference in the comparison?
+* If you have multiple experimental factors, how should you proceed? Think of 2 condition-2 tissues/cell types
+
 # Filtering
 
 It is often helpful to filter out lowly expressed genes before continuing 
@@ -486,6 +533,11 @@ dim(dge)
 
 Importantly, the group information should *not* be used to define the filtering 
 criterion, since that can interfere with the validity of the p-values downstream.
+
+### Quiz {-}
+
+* Removing unexpressed features might influence what you do when integrating different analyses. How could we proceed in such cases?
+* What if I download publicly available data and some genes are missing? What can be some of the possible reasons for this? 
 
 # Exploratory analysis and visualization
 
@@ -603,6 +655,12 @@ plotMDS(dge, top = 500, labels = NULL,
         cex = 0.5, gene.selection = "common")
 ```
 
+### Quiz {-}
+
+* What if I do not see a clear separation in my PCA plot? Is it still ok to proceed?
+* What should I do if I detect/am aware of a batch effect?
+* Raw data vs normalized data vs transformed data: Which one should I use in "all the cases" I could encounter?
+* "I have seen people using tSNE/UMAP in single cell data, why shouldn't we do the same here?" 
 
 # Differential expression analysis
 
@@ -747,6 +805,9 @@ counts for specific genes, using the `plotCounts` function:
 ```{r plotcounts}
 plotCounts(dds, gene = "ENSG00000126561.16", intgroup = "condition_name", 
            normalized = TRUE, transform = FALSE)
+
+GeneTonic::gene_plot(dds, gene = "ENSG00000126561.16", intgroup = "condition_name", 
+           normalized = TRUE, transform = FALSE)
 ```
 
 
@@ -831,6 +892,14 @@ treatres <- edgeR::glmTreat(fit, coef = "condition_nameIFNg", lfc = 1)
 tt.treat <- edgeR::topTags(treatres, n = nrow(dge), sort.by = "none")
 ```
 
+
+
+### Quiz {-}
+
+* A feature being called DE: "Why is my expected shortlisted gene not showing up?" What possible factors can play a role in the feature being above or below the significance threshold?
+* Shall I subset my DE results to the genes only detected as DE? Why?
+* The results between DESeq2 and edgeR might differ. Which one is "correct"? How can you better appreciate the existing commonalities and differences in the DE analysis?
+* The thought above is valid also for the process of integrating different DE analyses (i.e. using the same method, but "comparing different groups"). What can you think of to represent these results?
 
 # Plotting results
 
@@ -966,6 +1035,14 @@ write.table(cbind(id = rownames(resOrderedDF), resOrderedDF),
             row.names = FALSE)
 ```
 
+
+### Quiz {-}
+
+* Is visualization of data and results *really that important*?
+* Volcano plot or MA plot, what is "better"? Think of the information every plot type displays
+* Can I always plot expression values for a single gene, or for a set of genes (i.e. independently of their DE status)?
+* What can I do if I want to know more on one "novel" gene, possibly relevant with my experiment?
+
 # Functional analysis
 
 In order to interpret the differential expression analysis results in terms 
@@ -976,7 +1053,7 @@ Among these, *topGO* and *clusterProfiler* are two popular options.
 We can perform the analysis by following the instructions in the next chunk.
 In each case, the gene sets that are tested for enrichment are obtained from the [Gene Ontology](http://geneontology.org/) 'biological process' catalog. 
 
-```{r}
+```{r run-functionalenrichment}
 library(GeneTonic)
 de_symbols_IFNg_vs_naive <- deseqresult2df(res, FDR = 0.05)$symbol
 bg_ids <- rowData(dds)$SYMBOL[rowSums(counts(dds)) > 0]
@@ -1012,7 +1089,7 @@ To simplify the interpretation of transcriptome datasets, the *GeneTonic* packag
 
 As a first step, we convert the output of each tool to a consolidated "standard" format, as expected by GeneTonic - this is the first step to construct a `GeneTonicList` object, as a single container to perform all operations on afterwards, be it in the app or offline by using its functionality in scripts/notebooks.
 
-```{r}
+```{r shake-funcres}
 res_enrich_topGO <- shake_topGOtableResult(topgo_DE_macrophage_IFNg_vs_naive)
 res_enrich_clupro <- shake_enrichResult(clupro_DE_macrophage_IFNg_vs_naive)
 
@@ -1032,7 +1109,7 @@ saveRDS(gtl_macrophage, "gtl_macrophage.RDS")
 
 After that, we would simply have to call the `GeneTonic()` function specifying the `gtl` parameter - this can also be passed at runtime
 
-```{r eval=FALSE}
+```{r launchgt, eval=FALSE}
 ## and that is it!
 GeneTonic(gtl = gtl_macrophage)
 
@@ -1040,6 +1117,12 @@ GeneTonic(gtl = gtl_macrophage)
 GeneTonic()
 ```
 
+
+### Quiz {-}
+
+* Genes or geneset: What should I use as a key to interpretation?
+* What is the main advantage of using standardized objects vs a bunch of tables?
+* "Ok, I would still like your Bioinformatics group on board for my project. What should I expect to happen?"
 
 # Bonus: Differential transcript expression with swish
 
@@ -1049,27 +1132,21 @@ make use of the transcript-level abundance estimates. In addition, we need the
 inferential replicates. Since we ignored these when importing the data above, 
 we will re-import it here. 
 
-```{r, include=FALSE, echo=FALSE}
-evalBonus <- FALSE
-evalBonus <- TRUE
-```
-
-
-```{r importswish, eval = evalBonus}
+```{r importswish, eval=eval_dte}
 head(coldata)
 st <- tximeta(coldata = coldata, type = "salmon", dropInfReps = FALSE)
 ```
 
 We can check that the inferential replicates were imported as well: 
 
-```{r checkinfreps, eval = evalBonus}
+```{r checkinfreps, eval=eval_dte}
 assayNames(st)
 ```
 
 Since we are interested in comparing the `naive` and `IFNg` groups, we 
 subset our object to these groups.
 
-```{r subsetst, eval = evalBonus}
+```{r subsetst, eval=eval_dte}
 st <- st[, st$condition_name %in% c("naive", "IFNg")]
 st$condition_name <- factor(st$condition_name, c("naive", "IFNg"))
 ```
@@ -1078,7 +1155,7 @@ Next, we run the DTE analysis with *swish*. First we'll scale the inferential
 replicates, followed by labeling the rows with sufficient counts for running 
 differential expression, and then calculating the statistics. 
 
-```{r swishdte, message = FALSE, eval = evalBonus}
+```{r swishdte, message = FALSE, eval=eval_dte}
 library(fishpond)
 st <- scaleInfReps(st, lengthCorrect = TRUE)
 st <- labelKeep(st)
@@ -1089,7 +1166,7 @@ st <- swish(st, x = "condition_name", pair = "line_id", nperms = 100)
 
 The results are stored in `mcols(st)`. 
 
-```{r checkst, eval = evalBonus}
+```{r checkst, eval=eval_dte}
 head(mcols(st))
 table(mcols(st)$qvalue < 0.05)
 ## Most significant transcripts
@@ -1100,7 +1177,7 @@ hist(mcols(st)$pvalue, col = "grey")
 
 We can plot the results for some of the most significant transcripts.
 
-```{r plotdte, eval = evalBonus}
+```{r plotdte, eval=eval_dte}
 plotInfReps(st, idx = rownames(tophits)[1],
             x = "condition_name", cov = "line_id")
 plotInfReps(st, idx = rownames(tophits)[43],
@@ -1114,7 +1191,7 @@ We can also use the plotting functions of *swish* to plot the inferential
 replicates for the top-ranked genes in the differential gene expression 
 analysis. 
 
-```{r plotswishdge, eval = evalBonus}
+```{r plotswishdge, eval=eval_dte}
 ## Summarize on the gene level
 sg_inf <- summarizeToGene(st)
 sg_inf <- sg_inf[, sg_inf$condition_name %in% c("naive", "IFNg")]
@@ -1130,7 +1207,7 @@ Finally, we show how to run differential transcript usage analysis with
 With *swish*, we can build upon the data imported earlier to calculate 
 isoform proportions and perfom a permutation test based on these. 
 
-```{r swishdtu, eval = evalBonus}
+```{r swishdtu, eval=eval_dtu}
 iso <- isoformProportions(st)
 iso <- swish(iso, x = "condition_name", pair = "line_id", 
              nperms = 100)
@@ -1146,7 +1223,7 @@ observed library size to be comparable in size to the actual counts. For
 *DEXSeq*, we further subset the transcripts to those on chromosome 18, for 
 computational time reasons. 
 
-```{r dexseq, eval = evalBonus}
+```{r dexseq, eval=eval_dtu}
 head(coldata)
 st <- tximeta(coldata = coldata, type = "salmon", 
               countsFromAbundance = "scaledTPM")
@@ -1172,7 +1249,7 @@ head(dxr)
 
 Finally, we compare the p-value ranks for the genes shared by the two analyses. 
 
-```{r plotswishdexseq, eval = evalBonus}
+```{r plotswishdexseq, eval=eval_dtu}
 shared <- intersect(dxr$featureID, rownames(mcols(iso)))
 plot(rank(dxr[match(shared, dxr$featureID), "pvalue"]),
      rank(mcols(iso)[shared, "pvalue"]), cex = 0.1,
@@ -1184,7 +1261,7 @@ plot(rank(dxr[match(shared, dxr$featureID), "pvalue"]),
 It is good practice to always include a list of the software versions that were used to perform a given analysis, for reproducibility and trouble-shooting purposes. 
 One way of achieving this is via the `sessionInfo()` function. 
 
-```{r}
+```{r sessioninfo}
 sessionInfo()
 ```
 
