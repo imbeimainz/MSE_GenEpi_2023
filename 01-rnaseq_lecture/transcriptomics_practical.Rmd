@@ -1055,6 +1055,9 @@ In each case, the gene sets that are tested for enrichment are obtained from the
 
 ```{r run-functionalenrichment}
 library(GeneTonic)
+
+res$symbol <- rowData(dds)$SYMBOL
+
 de_symbols_IFNg_vs_naive <- deseqresult2df(res, FDR = 0.05)$symbol
 bg_ids <- rowData(dds)$SYMBOL[rowSums(counts(dds)) > 0]
 
@@ -1108,6 +1111,8 @@ gtl_macrophage <- GeneTonicList(
         gene_name = rowData(dds)$SYMBOL
     )
 )
+
+describe_gtl(gtl_macrophage)
 
 ## we can store this object as serialized file to load/share/...
 saveRDS(gtl_macrophage, "gtl_macrophage.RDS")
