@@ -1885,6 +1885,8 @@ class: center, middle
 
 # Practical session
 
+Check again the README file at https://github.com/imbeimainz/MSE_GenEpi_2023
+
 ---
 
 class: middle
