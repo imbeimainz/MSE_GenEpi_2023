@@ -1284,12 +1284,9 @@ deTable &lt;- matrix(
   dimnames = list(c("DE", "Not_DE"),
                   c("In_gene_set", "Not_in_gene_set")))
 deTable
-```
-
-```
-##        In_gene_set Not_in_gene_set
-## DE              28             501
-## Not_DE         142           12000
+#        In_gene_set Not_in_gene_set
+# DE              28             501
+# Not_DE         142           12000
 ```
 
 --
@@ -1297,20 +1294,17 @@ deTable
 
 ```r
 fisher.test(deTable, alternative = "greater")
-```
-
-```
-## 
-## 	Fisher's Exact Test for Count Data
-## 
-## data:  deTable
-## p-value = 4.088e-10
-## alternative hypothesis: true odds ratio is greater than 1
-## 95 percent confidence interval:
-##  3.226736      Inf
-## sample estimates:
-## odds ratio 
-##   4.721744
+# 
+# 	Fisher's Exact Test for Count Data
+# 
+# data:  deTable
+# p-value = 4.088e-10
+# alternative hypothesis: true odds ratio is greater than 1
+# 95 percent confidence interval:
+#  3.226736      Inf
+# sample estimates:
+# odds ratio 
+#   4.721744
 ```
 
 Basic principle - still, at the foundation of major public and commercial enrichment tools!
@@ -1867,6 +1861,26 @@ _Stop using Excel for performing Bioinformatics data analysis :)_
 
 `alevinQC`
 ]
+
+---
+
+# The essential - Recap
+
+--
+
+- Expression quantification
+
+--
+
+- Data exploration: principal components analysis, gene plots
+
+--
+
+- Differential analysis: DE modeling, design, effect size, variability, significance
+
+--
+
+- Functional interpretation: gene sets, pathways, biological themes
 
 ---
 
